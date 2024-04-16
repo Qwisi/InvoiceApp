@@ -1,0 +1,356 @@
+{
+  "name": "button",
+  "version": 33,
+  "source-key": {
+    "type": "figma",
+    "file": "nwlZxZR7kKi2y8DzIvzXq4",
+    "node": "93:4945",
+    "version": "5528849965",
+    "component-id": "6ad762bd6525d9cf818f4b1b488159a9b0816635"
+  },
+  "default": "state=disable",
+  "design": {
+    "atoms": [
+      {
+        "type": "group",
+        "id": "top_level",
+        "root": "true"
+      },
+      {
+        "type": "group",
+        "id": "stateLayer"
+      },
+      {
+        "type": "text",
+        "id": "labelText"
+      }
+    ],
+    "modes": {
+      "state=disable": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": 100.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "stroke-alignment": "center",
+            "children": [
+              "stateLayer"
+            ],
+            "item-spacing": 8.0,
+            "background-color": {
+              "alpha": 0.2,
+              "hue": 219.4818652849741,
+              "saturation": 0.7942386831275721,
+              "value": 0.9529411764705882
+            }
+          },
+          {
+            "id": "stateLayer",
+            "padding": {
+              "left": 24.0,
+              "top": 10.0,
+              "right": 24.0,
+              "bottom": 10.0
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 40.0
+              }
+            },
+            "arrangement": "row",
+            "children": [
+              "labelText"
+            ],
+            "item-spacing": 8.0,
+            "clip-content": false
+          },
+          {
+            "id": "labelText",
+            "font-weight": 500.0,
+            "color": {
+              "alpha": 0.4980392156862745,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            },
+            "text-content": "$buttonText",
+            "overflow": "visible",
+            "text-align-vertical": "center",
+            "letter-spacing": 0.10000000149011612,
+            "line-height": 1.4285714721679688,
+            "typeface": "Inter"
+          }
+        ]
+      },
+      "state=outlined": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": 100.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "stroke-width": 1.0,
+            "stroke-alignment": "center",
+            "stroke-color": {
+              "alpha": 1.0,
+              "hue": 219.4818652849741,
+              "saturation": 0.7942386831275721,
+              "value": 0.9529411764705882
+            },
+            "children": [
+              "stateLayer"
+            ],
+            "item-spacing": 8.0
+          },
+          {
+            "id": "stateLayer",
+            "padding": {
+              "left": 24.0,
+              "top": 10.0,
+              "right": 24.0,
+              "bottom": 10.0
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 40.0
+              }
+            },
+            "arrangement": "row",
+            "children": [
+              "labelText"
+            ],
+            "item-spacing": 8.0,
+            "clip-content": false
+          },
+          {
+            "id": "labelText",
+            "font-weight": 500.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 219.4818652849741,
+              "saturation": 0.7942386831275721,
+              "value": 0.9529411764705882
+            },
+            "text-content": "$buttonText",
+            "overflow": "visible",
+            "text-align-vertical": "center",
+            "letter-spacing": 0.10000000149011612,
+            "line-height": 1.4285714721679688,
+            "typeface": "Inter"
+          }
+        ]
+      },
+      "state=enable": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": 100.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "stroke-alignment": "center",
+            "children": [
+              "stateLayer"
+            ],
+            "item-spacing": 8.0,
+            "background-color": {
+              "alpha": 0.8,
+              "hue": 219.4818652849741,
+              "saturation": 0.7942386831275721,
+              "value": 0.9529411764705882
+            }
+          },
+          {
+            "id": "stateLayer",
+            "padding": {
+              "left": 24.0,
+              "top": 10.0,
+              "right": 24.0,
+              "bottom": 10.0
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 40.0
+              }
+            },
+            "arrangement": "row",
+            "children": [
+              "labelText"
+            ],
+            "item-spacing": 8.0,
+            "clip-content": false
+          },
+          {
+            "id": "labelText",
+            "font-weight": 500.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            },
+            "text-content": "$buttonText",
+            "overflow": "visible",
+            "text-align-vertical": "center",
+            "letter-spacing": 0.10000000149011612,
+            "line-height": 1.4285714721679688,
+            "typeface": "Inter"
+          }
+        ]
+      },
+      "state=pressed": {
+        "rules": [
+          {
+            "id": "top_level",
+            "border-radius": 100.0,
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "shrink"
+              },
+              "height-constraints": {
+                "sizing-mode": "shrink"
+              }
+            },
+            "stroke-alignment": "center",
+            "children": [
+              "stateLayer"
+            ],
+            "item-spacing": 8.0,
+            "background-color": {
+              "alpha": 1.0,
+              "hue": 219.4818652849741,
+              "saturation": 0.7942386831275721,
+              "value": 0.9529411764705882
+            }
+          },
+          {
+            "id": "stateLayer",
+            "padding": {
+              "left": 24.0,
+              "top": 10.0,
+              "right": 24.0,
+              "bottom": 10.0
+            },
+            "size-constraints": {
+              "width-constraints": {
+                "sizing-mode": "proportional",
+                "value": 1.0
+              },
+              "height-constraints": {
+                "sizing-mode": "fixed",
+                "value": 40.0
+              }
+            },
+            "arrangement": "row",
+            "children": [
+              "labelText"
+            ],
+            "item-spacing": 8.0,
+            "clip-content": false
+          },
+          {
+            "id": "labelText",
+            "font-weight": 500.0,
+            "color": {
+              "alpha": 1.0,
+              "hue": 0.0,
+              "saturation": 0.0,
+              "value": 1.0
+            },
+            "text-content": "$buttonText",
+            "overflow": "visible",
+            "text-align-vertical": "center",
+            "letter-spacing": 0.10000000149011612,
+            "line-height": 1.4285714721679688,
+            "typeface": "Inter"
+          }
+        ]
+      }
+    }
+  },
+  "parameters": {
+    "buttonText": {
+      "data-type": "text",
+      "required": false,
+      "description": ""
+    }
+  },
+  "previews": [
+    {
+      "design": "state=disable",
+      "size": {
+        "width": 159.0,
+        "height": 40.0
+      },
+      "parameters": {
+        "buttonText": "+ Create invoice"
+      }
+    },
+    {
+      "design": "state=outlined",
+      "size": {
+        "width": 159.0,
+        "height": 40.0
+      },
+      "parameters": {
+        "buttonText": "+ Create invoice"
+      }
+    },
+    {
+      "design": "state=enable",
+      "size": {
+        "width": 159.0,
+        "height": 40.0
+      },
+      "parameters": {
+        "buttonText": "+ Create invoice"
+      }
+    },
+    {
+      "design": "state=pressed",
+      "size": {
+        "width": 159.0,
+        "height": 40.0
+      },
+      "parameters": {
+        "buttonText": "+ Create invoice"
+      }
+    }
+  ],
+  "adin-component-search-paths": [],
+  "image-search-paths": [],
+  "vector-search-paths": []
+}
