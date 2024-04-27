@@ -12,6 +12,7 @@ import com.example.invoiceapp.R
 import androidx.compose.material3.Icon
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -22,6 +23,10 @@ import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.example.invoiceapp.ui.theme.FontOnBackground
+import com.example.invoiceapp.ui.theme.Secondary100
+import com.example.invoiceapp.ui.theme.TextFieldLabel
+import com.example.invoiceapp.ui.theme.TextFieldValue
 
 @Preview
 @Composable
@@ -69,7 +74,7 @@ fun StyledDropDownMenu(
                 .fillMaxWidth(),
             value = props.options.getOrElse(props.selectedIndex.value) { "" },
             onValueChange = { },
-            label = { Text(text = labelText) },
+            label = { Text(text = labelText, style = TextFieldLabel.copy(FontOnBackground)) },
             readOnly = true,
             singleLine = true,
             trailingIcon = {
@@ -80,7 +85,8 @@ fun StyledDropDownMenu(
                     tint = Color.Unspecified
                 )
             },
-            /*colors = TextFieldDefaults.outlinedTextFieldColors(
+            textStyle = TextFieldValue,
+            colors = TextFieldDefaults.outlinedTextFieldColors(
                 focusedBorderColor = Secondary100,
                 unfocusedBorderColor = Secondary100,
 
@@ -89,7 +95,7 @@ fun StyledDropDownMenu(
 
                 focusedTextColor = FontOnBackground,
                 unfocusedTextColor = FontOnBackground
-            )*/
+            )
         )
 
         ExposedDropdownMenu(
@@ -136,16 +142,3 @@ fun StyledDropDownMenu(
         }
         */
 }
-
-/*
-            colors = TextFieldDefaults.outlinedTextFieldColors(
-                focusedBorderColor = Secondary100,
-                unfocusedBorderColor = Secondary100,
-
-                focusedLabelColor = FontOnBackground,
-                unfocusedLabelColor = FontOnBackground,
-
-                focusedTextColor = FontOnBackground,
-                unfocusedTextColor = FontOnBackground
-            )
- */

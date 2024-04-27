@@ -20,14 +20,14 @@ import androidx.compose.ui.unit.dp
 
 @Preview
 @Composable
-fun StyledAddCardPreview() {
+fun StyledConfirmationCardPreview() {
     Box(
         modifier = Modifier
             .fillMaxSize()
             .background(Color.Gray),
         contentAlignment = Alignment.Center
     ) {
-        StyledAddCard(
+        StyledConfirmationCard(
             modifier = Modifier
                 .padding(horizontal = 20.dp)
                 .fillMaxWidth(),
@@ -38,14 +38,14 @@ fun StyledAddCardPreview() {
 }
 
 @Composable
-fun StyledAddCard(
+fun StyledConfirmationCard(
     modifier: Modifier = Modifier,
-    title: String = "Title",
-    styledOutlinedTextFieldProps: StyledOutlinedTextFieldProps = StyledOutlinedTextFieldProps(),
-    onConfirm: (String) -> Unit,
+    action: String = "delete",
+    page: String = "invoice",
+    info: String = "19-03-2024 / 5:05 PM - John Smith",
+    onConfirm: () -> Unit,
     onDismiss: () -> Unit
 ) {
-
     Surface(
         modifier = modifier,
         shape = RoundedCornerShape(10.dp)
@@ -56,12 +56,11 @@ fun StyledAddCard(
                 .padding(15.dp)
         ) {
             Text(
-                text = title
+                modifier = Modifier.padding(bottom = 10.dp),
+                text = "Confirm $action"
             )
-            StyledOutlinedTextField(
-                modifier = Modifier
-                    .padding(top = 10.dp),
-                props = styledOutlinedTextFieldProps
+            Text(
+                text = "Are you sure you want to $action $page:\n$info"
             )
             Row(
                 modifier = Modifier
@@ -76,10 +75,8 @@ fun StyledAddCard(
                 ) { onDismiss() }
                 StyledButton(
                     modifier = Modifier.weight(1f),
-                    text = "Add",
-                    isEnabled = styledOutlinedTextFieldProps.textFieldValue.value.isNotEmpty()
-                            && !styledOutlinedTextFieldProps.isError.value
-                ) { onConfirm(styledOutlinedTextFieldProps.textFieldValue.value) }
+                    text = action[0].uppercase() + action.substring(1),
+                ){ onConfirm() }
             }
         }
     }

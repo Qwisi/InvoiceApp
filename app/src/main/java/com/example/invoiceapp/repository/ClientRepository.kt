@@ -1,21 +1,19 @@
 package com.example.invoiceapp.repository
 
-import com.example.invoiceapp.model.ClientDao
-import com.example.invoiceapp.model.client.Client
+import com.example.invoiceapp.model.client.*
 
-
-class ClientRepository(private val customerDao: ClientDao) {
-    fun get() = customerDao.getLiveData()
-
-    suspend fun insert(customer: Client) {
-        customerDao.insert(customer)
+class ClientRepository(
+    private val clientDao: ClientDao
+) {
+    fun get() = clientDao.getLiveData()
+    suspend fun insert(client: Client) {
+        clientDao.insert(client)
+    }
+    suspend fun update(client: Client) {
+        clientDao.update(client)
     }
 
-    suspend fun remove(customer: Client){
-        customerDao.delete(customer)
-    }
-
-    suspend fun getById(id: Int): Client? {
-        return customerDao.getById(id)
+    suspend fun delete(client: Client) {
+        clientDao.delete(client)
     }
 }

@@ -47,7 +47,8 @@ fun SimpleListItem(
     overLineText: String,
     headLine: String,
     supportingText: String,
-    onClick: () -> Unit = {}
+    onClick: () -> Unit = {},
+    onLongPress: () -> Unit = {}
 ) {
     UnifiedLine(
         modifier = modifier,
@@ -67,6 +68,7 @@ fun SimpleListItem(
                 contentDescription = "Open item icon"
             )
         },
-        onClick = onClick
+        onClick = onClick,
+        onLongPress = onLongPress
     )
 }

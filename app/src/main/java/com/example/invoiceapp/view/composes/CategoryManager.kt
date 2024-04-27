@@ -38,7 +38,6 @@ fun StyledCategoryManagerPreview(){
 }
 
 data class CategoryManagerProps(
-    val modifier: Modifier = Modifier,
     val selectedIndex: MutableState<Int>, // do not forget to initialize with remember
     val options: MutableList<String> = mutableListOf(),
     val chosenCategories: MutableList<String> = mutableListOf(),

@@ -14,7 +14,12 @@ data class Client(
     var name: String,
     var surname: String,
     var phoneNumber: String,
+    var country: String,
+    var city: String,
+    var street: String,
+    var houseNumber: Int,
+    var postCode: String,
     var discount: Double,
-    var totalAmount: Double,
+    var totalAmount: Double = 0.0,
     var specialNotes: String?
 )
