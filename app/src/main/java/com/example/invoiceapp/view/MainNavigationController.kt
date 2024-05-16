@@ -8,6 +8,7 @@ import com.example.invoiceapp.R
 import com.example.invoiceapp.view.client.ClientView
 import com.example.invoiceapp.view.invoice.InvoiceView
 import com.example.invoiceapp.view.product.ProductView
+import com.example.invoiceapp.view.statistic.StatisticView
 import com.example.invoiceapp.viewModel.CategoryViewModel
 import com.example.invoiceapp.viewModel.ClientViewModel
 import com.example.invoiceapp.viewModel.InvoiceViewModel
@@ -28,15 +29,14 @@ fun MainNavigationController(
     invoiceViewModel: InvoiceViewModel
 ) {
     val navController = rememberNavController()
-    NavHost(navController, startDestination = Screen.Client.route) {
+    NavHost(navController, startDestination = Screen.Invoice.route) {
         Screen.entries.forEach { screen ->
             composable(screen.route) {
                 when (screen) {
                     Screen.Invoice -> InvoiceView(navController, invoiceViewModel, productViewModel, clientViewModel)
-                    Screen.Statistic -> { }
+                    Screen.Statistic -> StatisticView(navController, invoiceViewModel, productViewModel, clientViewModel)
                     Screen.Product -> ProductView(navController, productViewModel, categoryViewModel)
                     Screen.Client -> ClientView(navController, clientViewModel)
-                    else -> {}
                 }
             }
         }

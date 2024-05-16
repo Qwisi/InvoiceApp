@@ -15,9 +15,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.invoiceapp.R
+import com.example.invoiceapp.ui.theme.HeadLineRobotoRegular
 
 @Preview
 @Composable
@@ -40,10 +42,10 @@ fun SimpleTopBar(
     price: Double = 0.0,
     onBackClick: () -> Unit = {}
 ) {
-
     Row(
         modifier = modifier
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .padding(horizontal = 10.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
         horizontalArrangement = Arrangement.Start
     ) {
@@ -56,12 +58,18 @@ fun SimpleTopBar(
         )
         Text(
             text = title,
-            modifier = Modifier.weight(1f)
+            modifier = Modifier.weight(1f),
+            style = HeadLineRobotoRegular
         )
-        if (price != 0.0) {
+        if (price > 0.0) {
             Text(
-                text = "Price: $$price",
-                modifier = Modifier.padding(start = 10.dp)
+                text = "Price: ",
+                modifier = Modifier.padding(start = 10.dp),
+                style = HeadLineRobotoRegular
+            )
+            Text(
+                text = price.toString(),
+                style = HeadLineRobotoRegular.copy(fontWeight = FontWeight.Bold)
             )
         }
     }

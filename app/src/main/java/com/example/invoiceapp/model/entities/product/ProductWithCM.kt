@@ -1,9 +1,9 @@
-package com.example.invoiceapp.model.product
+package com.example.invoiceapp.model.entities.product
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.example.invoiceapp.model.category.Category
-import com.example.invoiceapp.model.measurement.Measurement
+import com.example.invoiceapp.model.entities.category.Category
+import com.example.invoiceapp.model.entities.measurement.Measurement
 
 data class ProductWithCM(
     @Embedded val product: Product,

@@ -1,4 +1,4 @@
-package com.example.invoiceapp.model.invoiceItem
+package com.example.invoiceapp.model.entities.invoiceItem
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao

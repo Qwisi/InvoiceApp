@@ -7,7 +7,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.invoiceapp.model.client.Client
+import com.example.invoiceapp.model.entities.client.Client
 import com.example.invoiceapp.view.composes.StyledClientItem
 
 @Composable

@@ -1,4 +1,4 @@
-package com.example.invoiceapp.model.client
+package com.example.invoiceapp.model.entities.client
 
 import androidx.room.Entity
 import androidx.room.Index
@@ -14,7 +14,7 @@ data class Client(
     var name: String,
     var surname: String,
     var phoneNumber: String,
-    var country: String,
+    var country: String, //
     var city: String,
     var street: String,
     var houseNumber: Int,

@@ -23,8 +23,7 @@ fun StyledComponentOverlayPreview(){
         StyledComponentOverlay {
             StyledAddCard(
                 modifier = Modifier.padding(20.dp),
-                onConfirm = {},
-                onDismiss = {},
+                onConfirm = {}, onDismiss = {},
             )
         }
     }

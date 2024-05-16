@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.invoiceapp.model.category.Category
+import com.example.invoiceapp.model.entities.category.Category
 import com.example.invoiceapp.view.composes.StyledAddCard
 import com.example.invoiceapp.view.composes.StyledOutlinedTextFieldProps
 import com.example.invoiceapp.viewModel.CategoryViewModel
@@ -21,7 +21,7 @@ fun AddCategoryOverlay(categoryViewModel: CategoryViewModel, onDismiss: () -> Un
             immediateValidation = true
         ),
         onConfirm = { newCategoryName ->
-            categoryViewModel.insertCategory(Category(category = newCategoryName))
+            categoryViewModel.insertCategory(Category(name = newCategoryName))
             onDismiss()
         },
         onDismiss = onDismiss

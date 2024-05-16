@@ -1,4 +1,4 @@
-package com.example.invoiceapp.model.product
+package com.example.invoiceapp.model.entities.product
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -30,6 +30,12 @@ interface ProductDao {
     fun getLiveData(): LiveData<List<Product>>
     @Query("SELECT * FROM Product WHERE id = :id")
     fun getById(id: Int): Product
+
+    @Query("SELECT * FROM Product")
+    fun getSize(): Int
+
+    @Query("SELECT AVG(price) FROM Product")
+    fun getAveragePrice(): Double
 
     //----------------Transactions
     @Transaction

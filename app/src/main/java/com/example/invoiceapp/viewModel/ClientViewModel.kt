@@ -2,8 +2,8 @@ package com.example.invoiceapp.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.invoiceapp.model.client.Client
-import com.example.invoiceapp.repository.ClientRepository
+import com.example.invoiceapp.model.entities.client.Client
+import com.example.invoiceapp.model.repository.ClientRepository
 import kotlinx.coroutines.launch
 
 class ClientViewModel(
@@ -23,4 +23,8 @@ class ClientViewModel(
     fun delete(client: Client) = viewModelScope.launch {
         repository.delete(client)
     }
+
+    fun getSize() = repository.getSize()
+
+    fun getAverageTotalAmount() = repository.getAverageTotalAmount()
 }

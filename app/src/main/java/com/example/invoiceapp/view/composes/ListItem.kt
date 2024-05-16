@@ -1,5 +1,6 @@
 package com.example.invoiceapp.view.composes
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -15,10 +16,14 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.invoiceapp.R
+import com.example.invoiceapp.ui.theme.ConfirmGreen
+import com.example.invoiceapp.ui.theme.ConfirmRed
+import com.example.invoiceapp.ui.theme.FontOnBackground
+import com.example.invoiceapp.ui.theme.SubText100
 
 @Preview
 @Composable
-fun SimpleInvoiceLinePreview(){
+fun StyledListPreview(){
     Box(modifier = Modifier
         .fillMaxSize()
         .background(Color.White)){
@@ -27,22 +32,32 @@ fun SimpleInvoiceLinePreview(){
                 .fillMaxWidth()
                 .padding(horizontal = 15.dp)
         ){
-            SimpleListItem(
-                overLineText = "status",
+            StyledListItem(
+                overLineText = Status.Unpaid.textValue,
                 headLine = "01-01-2024 / 00:00 AM",
                 supportingText = "Name Surname"
             )
-            SimpleListItem(
+            StyledListItem(
+                overLineText = Status.Paid.textValue,
+                headLine = "01-01-2024 / 00:00 AM",
+                supportingText = "Name Surname"
+            )
+            StyledListItem(
                 overLineText = "\$price",
-                headLine = "Item",
+                headLine = "Product name",
                 supportingText = "Category"
             )
         }
     }
 }
 
+enum class Status(val textValue: String){
+    Paid("Paid"),
+    Unpaid("Unpaid")
+}
+
 @Composable
-fun SimpleListItem(
+fun StyledListItem(
     modifier: Modifier = Modifier,
     overLineText: String,
     headLine: String,
@@ -56,14 +71,21 @@ fun SimpleListItem(
             Column {
                 Text(
                     text = overLineText,
-                    color = Color.Red,
+                    color = if(Status.Paid.textValue == overLineText)
+                        ConfirmGreen else ConfirmRed
                 )
-                Text( text = headLine )
-                Text( text = supportingText )
+                Text(
+                    text = headLine,
+                    color = FontOnBackground
+                )
+                Text(
+                    text = supportingText,
+                    color = SubText100
+                )
             }
         },
         rightCompose = {
-            Icon(
+            Image(
                 painter = painterResource(id = R.drawable.icon_arrow_list),
                 contentDescription = "Open item icon"
             )

@@ -11,9 +11,9 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.invoiceapp.model.category.Category
-import com.example.invoiceapp.model.measurement.Measurement
-import com.example.invoiceapp.model.product.ProductWithCM
+import com.example.invoiceapp.model.entities.category.Category
+import com.example.invoiceapp.model.entities.measurement.Measurement
+import com.example.invoiceapp.model.entities.product.ProductWithCM
 import com.example.invoiceapp.view.composes.StyledDropDownMenu
 import com.example.invoiceapp.view.composes.StyledDropDownMenuProps
 import com.example.invoiceapp.view.composes.StyledOutlinedTextField
@@ -26,9 +26,9 @@ fun ProductAdd(
     categories: List<Category>,
     measurements: List<Measurement>,
     onCategorySelected: (Int) -> Unit,
-    onAddCategory: () -> Unit,
+    onCategoryAdd: () -> Unit,
     onMeasurementSelected: (Int) -> Unit,
-    onAddMeasurement: () -> Unit
+    onMeasurementAdd: () -> Unit
 ){
     val categoryIndex = remember { mutableIntStateOf(categories.indexOfFirst { it.id == productProps.productCategoryID }) }
     val measurementIndex = remember { mutableIntStateOf(measurements.indexOfFirst { it.id == productProps.productMeasurementID }) }
@@ -52,11 +52,11 @@ fun ProductAdd(
                 modifier = Modifier.padding(bottom = 10.dp),
                 labelText = "Category",
                 props = StyledDropDownMenuProps(
-                    options = categories.map { it.category }.toMutableList(),
+                    options = categories.map { it.name }.toMutableList(),
                     selectedIndex = categoryIndex,
-                    onCreateCategory = onAddCategory,
+                    onCreateCategory = onCategoryAdd,
                     onCategorySelected = { selectedOption ->
-                        val selectedCategoryIndex = categories.indexOfFirst { it.category == selectedOption }
+                        val selectedCategoryIndex = categories.indexOfFirst { it.name == selectedOption }
                         categoryIndex.intValue = selectedCategoryIndex
                         onCategorySelected(categories[selectedCategoryIndex].id)
                     }
@@ -86,7 +86,7 @@ fun ProductAdd(
                     props = StyledDropDownMenuProps(
                         options = measurements.map { it.unit }.toMutableList(),
                         selectedIndex = measurementIndex,
-                        onCreateCategory = onAddMeasurement,
+                        onCreateCategory = onMeasurementAdd,
                         onCategorySelected = { selectedOption ->
                             val selectedMeasurementIndex = measurements.indexOfFirst { it.unit == selectedOption }
                             measurementIndex.intValue = selectedMeasurementIndex
@@ -121,10 +121,10 @@ fun productProps(
         productTitleProps = StyledOutlinedTextFieldProps(
             textFieldValue = productTitle,
             labelText = "Title",
-            placeholderText = "Enter product name",
-            //supportingText = "enter valid title (no digits)",
-            //validator = {string -> string.contains(Regex("\\d")) },
-            //immediateValidation = true
+            placeholderText = "Enter product title",
+            supportingText = "enter valid title (no digits)",
+            validator = {string -> string.contains(Regex("\\d")) },
+            immediateValidation = true
         ),
         productDescriptionProps = StyledOutlinedTextFieldProps(
             textFieldValue = productDescription,

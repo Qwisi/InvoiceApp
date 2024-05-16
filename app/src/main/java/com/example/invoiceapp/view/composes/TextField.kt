@@ -71,6 +71,7 @@ fun StyledOutlinedTextFieldPreview(){
 
 data class StyledOutlinedTextFieldProps(
     val textFieldValue: MutableState<String> = mutableStateOf(""),
+    val onValueChange: (String) -> Unit = { newValue -> textFieldValue.value = newValue },
     val labelText: String = "",
     val placeholderText: String = "",
     val supportingText: String = "",
@@ -98,7 +99,7 @@ fun StyledOutlinedTextField(
                 isTextFieldFocused = focusState.isFocused
             },
         value = props.textFieldValue.value,
-        onValueChange = { props.textFieldValue.value = it },
+        onValueChange = props.onValueChange,
         label = { Text(text = props.labelText, style = TextFieldLabel.copy(FontOnBackground)) },
         placeholder = { Text(text = props.placeholderText)},
         readOnly = props.readOnly,

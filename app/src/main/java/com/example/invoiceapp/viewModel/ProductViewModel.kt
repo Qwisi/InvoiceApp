@@ -2,10 +2,10 @@ package com.example.invoiceapp.viewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.invoiceapp.model.measurement.Measurement
-import com.example.invoiceapp.model.product.Product
-import com.example.invoiceapp.model.product.ProductWithCM
-import com.example.invoiceapp.repository.ProductRepository
+import com.example.invoiceapp.model.entities.measurement.Measurement
+import com.example.invoiceapp.model.entities.product.Product
+import com.example.invoiceapp.model.entities.product.ProductWithCM
+import com.example.invoiceapp.model.repository.ProductRepository
 import kotlinx.coroutines.launch
 
 class ProductViewModel(private val repository: ProductRepository) : ViewModel() {
@@ -23,7 +23,11 @@ class ProductViewModel(private val repository: ProductRepository) : ViewModel() 
     fun delete(product: Product) = viewModelScope.launch {
         repository.delete(product)
     }
+    // ------------ Queries
+    fun getSize() = repository.getSize()
+    fun getAveragePrice() = repository.getAveragePrice()
 
+    // ------------ ProductWithCM
     fun delete(productWithCM: ProductWithCM) = viewModelScope.launch {
         repository.delete(repository.getById(productWithCM.product.id))
     }

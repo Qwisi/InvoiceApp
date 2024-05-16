@@ -15,8 +15,8 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.invoiceapp.model.ApplicationDB
-import com.example.invoiceapp.model.client.Client
-import com.example.invoiceapp.repository.ClientRepository
+import com.example.invoiceapp.model.entities.client.Client
+import com.example.invoiceapp.model.repository.ClientRepository
 import com.example.invoiceapp.view.composes.SimpleTopBar
 import com.example.invoiceapp.view.composes.StyledComponentOverlay
 import com.example.invoiceapp.view.composes.StyledConfirmationCard

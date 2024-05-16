@@ -27,25 +27,25 @@ import com.example.invoiceapp.ui.theme.Primary60
 @Preview (showBackground = true)
 @Composable
 fun OutlinedDisableButton(){
-    StyledButton(Modifier, "+ Create invoice", false, true) {}
+    StyledButton(Modifier.padding(10.dp), "+ Create invoice", false, true) {}
 }
 
 @Preview (showBackground = true)
 @Composable
 fun OutlinedEnableButton(){
-    StyledButton(Modifier, "+ Create invoice", true, true) {}
+    StyledButton(Modifier.padding(10.dp), "+ Create invoice", true, true) {}
 }
 
 @Preview (showBackground = true)
 @Composable
 fun DisableButton(){
-    StyledButton(Modifier, "+ Create invoice", false) {}
+    StyledButton(Modifier.padding(10.dp), "+ Create invoice", false) {}
 }
 
 @Preview (showBackground = true)
 @Composable
 fun EnableButton(){
-    StyledButton(Modifier, "+ Create invoice", true) {}
+    StyledButton(Modifier.padding(10.dp), "+ Create invoice", true) {}
 }
 
 @Composable

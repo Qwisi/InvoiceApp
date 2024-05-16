@@ -22,7 +22,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.invoiceapp.model.ApplicationDB
-import com.example.invoiceapp.repository.CategoryRepository
+import com.example.invoiceapp.model.repository.CategoryRepository
 import com.example.invoiceapp.view.composes.StyledComponentOverlay
 import com.example.invoiceapp.view.composes.StyledAddCard
 import com.example.invoiceapp.view.composes.StyledOutlinedTextFieldProps
@@ -64,35 +64,24 @@ fun GreetingView(
             TopAppBar(
                 modifier = Modifier.fillMaxWidth(),
                 title = {
-                    Box(
-                        modifier = Modifier.fillMaxWidth(),
+                    Box( modifier = Modifier.fillMaxWidth(),
                         contentAlignment = Alignment.Center
-                    ) {
-                        Text("Create account")
-                    }
+                    ) { Text("Create account") }
                 }
             )
         },
         bottomBar = {
             CreateButton(
-                companyTextFieldProps,
-                chosenCategories,
-                imageUri,
-                imageUris,
-                context,
-                viewModel
+                companyTextFieldProps, chosenCategories,
+                imageUri, imageUris, context, viewModel
             )
         }
     ) { innerPadding ->
         GreetingBody(
-            innerPadding,
-            companyTextFieldProps,
-            categoryIndex,
-            categoryOptions,
-            chosenCategories,
-            showAddCard,
-            imageUri,
-            imageUris
+            innerPadding, companyTextFieldProps,
+            categoryIndex, categoryOptions,
+            chosenCategories, showAddCard,
+            imageUri, imageUris
         )
     }
 

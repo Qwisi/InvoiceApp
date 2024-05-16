@@ -1,8 +1,8 @@
-package com.example.invoiceapp.model.invoiceItem
+package com.example.invoiceapp.model.entities.invoiceItem
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.example.invoiceapp.model.product.Product
+import com.example.invoiceapp.model.entities.product.Product
 
 data class InvoiceItemWithProduct(
     @Embedded val invoiceItem: InvoiceItem,

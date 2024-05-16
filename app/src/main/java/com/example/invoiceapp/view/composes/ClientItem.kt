@@ -1,5 +1,6 @@
 package com.example.invoiceapp.view.composes
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -21,7 +22,7 @@ import com.example.invoiceapp.R
 
 @Preview
 @Composable
-fun SimpleClientItemPreview(){
+fun StyledClientItemPreview(){
     Box(modifier = Modifier
         .fillMaxSize()
         .background(Color.White)
@@ -40,7 +41,7 @@ fun SimpleClientItemPreview(){
                 onClick = {}
             )
             StyledClientInvoiceItem(
-                clientName = "Kim Joel",
+                clientName = "John Smith",
                 isChosen = remember { mutableStateOf(false) }
             )
             StyledClientInvoiceItem(
@@ -64,7 +65,7 @@ fun StyledClientItem(
             Text( text = clientName )
         },
         rightCompose ={
-            Icon(
+            Image(
                 painter = painterResource(id = R.drawable.icon_arrow_list),
                 contentDescription = "Open client icon"
             )

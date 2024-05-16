@@ -1,6 +1,5 @@
 package com.example.invoiceapp.view.product
 
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -8,22 +7,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
-import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.invoiceapp.model.ApplicationDB
-import com.example.invoiceapp.model.category.Category
-import com.example.invoiceapp.model.measurement.Measurement
-import com.example.invoiceapp.model.product.Product
-import com.example.invoiceapp.model.product.ProductWithCM
-import com.example.invoiceapp.repository.CategoryRepository
-import com.example.invoiceapp.repository.ProductRepository
+import com.example.invoiceapp.model.entities.category.Category
+import com.example.invoiceapp.model.entities.measurement.Measurement
+import com.example.invoiceapp.model.entities.product.Product
+import com.example.invoiceapp.model.entities.product.ProductWithCM
+import com.example.invoiceapp.model.repository.CategoryRepository
+import com.example.invoiceapp.model.repository.ProductRepository
 import com.example.invoiceapp.view.composes.SimpleTopBar
 import com.example.invoiceapp.view.composes.StyledComponentOverlay
-import com.example.invoiceapp.view.composes.StyledConfirmationCard
 import com.example.invoiceapp.view.composes.StyledNavigationBar
 import com.example.invoiceapp.viewModel.CategoryViewModel
 import com.example.invoiceapp.viewModel.ProductViewModel
@@ -43,8 +39,8 @@ fun ProductViewPreview() {
     val categoryDao = tempDb.categoryDao()
     val categoryRepository = CategoryRepository(categoryDao)
     val categoryViewModel = CategoryViewModel(categoryRepository)
-    val categoryVeg = Category(id = 1, category = "Vegetables")
-    val categorySw = Category(id = 2, category = "Sweets")
+    val categoryVeg = Category(id = 1, name = "Vegetables")
+    val categorySw = Category(id = 2, name = "Sweets")
 
         //Product attributes
     val productDao = tempDb.productDao()
@@ -101,9 +97,7 @@ fun ProductView(
         topBar = {
             SimpleTopBar(
                 title = "Product"
-            ) {
-                // on back arrow click
-            }
+            ) { /* TODO: Implement on back arrow click */ }
         },
         bottomBar = {
             StyledNavigationBar(
@@ -115,8 +109,8 @@ fun ProductView(
             innerPadding = innerPadding,
             productViewModel = productViewModel,
             categoryViewModel = categoryViewModel,
-            onAddCategory = { currentOverlay = OverlayType.ADD_CATEGORY },
-            onAddMeasurement = { currentOverlay = OverlayType.ADD_MEASUREMENT },
+            onCategoryAdd = { currentOverlay = OverlayType.ADD_CATEGORY },
+            onMeasurementAdd = { currentOverlay = OverlayType.ADD_MEASUREMENT },
             onProductLongPress = {
                 currentOverlay = OverlayType.CONFIRMATION
                 productToDelete = it
@@ -147,6 +141,6 @@ fun ProductView(
     }
 
 }
-enum class OverlayType {
+private enum class OverlayType {
     NONE, ADD_CATEGORY, ADD_MEASUREMENT, CONFIRMATION
 }

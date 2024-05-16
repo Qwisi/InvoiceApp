@@ -12,6 +12,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableDoubleStateOf
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,24 +26,26 @@ import androidx.lifecycle.asFlow
 import androidx.navigation.NavController
 import androidx.navigation.compose.rememberNavController
 import com.example.invoiceapp.model.ApplicationDB
-import com.example.invoiceapp.model.category.Category
-import com.example.invoiceapp.model.client.Client
-import com.example.invoiceapp.model.invoice.Invoice
-import com.example.invoiceapp.model.invoice.InvoiceCrossItems
-import com.example.invoiceapp.model.invoice.InvoiceWithIC
-import com.example.invoiceapp.model.invoiceItem.InvoiceItem
-import com.example.invoiceapp.model.measurement.Measurement
-import com.example.invoiceapp.model.product.Product
-import com.example.invoiceapp.repository.CategoryRepository
-import com.example.invoiceapp.repository.ClientRepository
-import com.example.invoiceapp.repository.InvoiceRepository
-import com.example.invoiceapp.repository.ProductRepository
+import com.example.invoiceapp.model.entities.category.Category
+import com.example.invoiceapp.model.entities.client.Client
+import com.example.invoiceapp.model.entities.invoice.Invoice
+import com.example.invoiceapp.model.entities.invoice.InvoiceCrossItems
+import com.example.invoiceapp.model.entities.invoice.InvoiceWithIC
+import com.example.invoiceapp.model.entities.invoiceItem.InvoiceItem
+import com.example.invoiceapp.model.entities.measurement.Measurement
+import com.example.invoiceapp.model.entities.product.Product
+import com.example.invoiceapp.model.repository.CategoryRepository
+import com.example.invoiceapp.model.repository.ClientRepository
+import com.example.invoiceapp.model.repository.InvoiceRepository
+import com.example.invoiceapp.model.repository.ProductRepository
 import com.example.invoiceapp.view.composes.ProductItem
-import com.example.invoiceapp.view.composes.SimpleListItem
-import com.example.invoiceapp.view.composes.SimpleSearchFilterBar
+import com.example.invoiceapp.view.composes.StyledListItem
+import com.example.invoiceapp.view.composes.StyledSearchBar
 import com.example.invoiceapp.view.composes.SimpleTopBar
 import com.example.invoiceapp.view.composes.StyledButton
 import com.example.invoiceapp.view.composes.StyledClientInvoiceItem
+import com.example.invoiceapp.view.composes.StyledComponentOverlay
+import com.example.invoiceapp.view.composes.StyledConfirmationCard
 import com.example.invoiceapp.view.composes.StyledNavigationBar
 import com.example.invoiceapp.view.composes.StyledOutlinedTextField
 import com.example.invoiceapp.view.composes.StyledOutlinedTextFieldProps
@@ -52,6 +55,7 @@ import com.example.invoiceapp.viewModel.InvoiceViewModel
 import com.example.invoiceapp.viewModel.ProductViewModel
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
+import java.util.Date
 
 @Preview
 @Composable
@@ -67,7 +71,7 @@ fun InvoiceViewPreview(){
         name = "John",
         surname = "Doe",
         phoneNumber = "1234567890",
-        discount = 0.15,
+        discount = 0.10,
         totalAmount = 120.00,
         specialNotes = "Preferred customer",
         country = "Sample Country",
@@ -101,8 +105,8 @@ fun InvoiceViewPreview(){
     val categoryDao = tempDb.categoryDao()
     val categoryRepository = CategoryRepository(categoryDao)
     val categoryViewModel = CategoryViewModel(categoryRepository)
-    val categoryVeg = Category(id = 1, category = "Vegetables")
-    val categorySw = Category(id = 2, category = "Sweets")
+    val categoryVeg = Category(id = 1, name = "Vegetables")
+    val categorySw = Category(id = 2, name = "Sweets")
 
     //Product attributes
     val productDao = tempDb.productDao()
@@ -112,7 +116,7 @@ fun InvoiceViewPreview(){
     val apple = Product(
         title = "Apple",
         description = "sweet red apple",
-        price = 23.5,
+        price = 24.0,
         measurementValue = 1.0,
         idCategory = 1,
         idMeasurement = 1
@@ -142,6 +146,7 @@ fun InvoiceViewPreview(){
         number = "0014-04-2024",
         discount = 0.0,
         totalPrice = 240.5,
+        dateCreated = Date(),
         idClient = 1
     )
 
@@ -189,12 +194,16 @@ fun InvoiceView(
     clientViewModel: ClientViewModel
 ){
 
+    val totalPrice = remember { mutableDoubleStateOf(0.0) }
+    var invoiceToDelete by remember { mutableStateOf<InvoiceWithIC?>(null) }
+
     Scaffold(
         topBar = {
             SimpleTopBar(
-                title = "Invoice"
+                title = "Invoice",
+                price = totalPrice.doubleValue
             ){
-                // on back arrow click
+                navController.popBackStack()
             }
         },
         bottomBar = {
@@ -207,8 +216,25 @@ fun InvoiceView(
             innerPadding = innerPadding,
             invoiceViewModel = invoiceViewModel,
             productViewModel = productViewModel,
-            clientViewModel = clientViewModel
+            clientViewModel = clientViewModel,
+            totalPrice = totalPrice,
+            onInvoiceLongPress = {invoiceToDelete = it}
         )
+    }
+
+    if(invoiceToDelete != null){
+        StyledComponentOverlay {
+            StyledConfirmationCard(
+                modifier = Modifier.padding(horizontal = 20.dp),
+                info = "${invoiceToDelete!!.invoice.number} made for ${invoiceToDelete!!.client.surname}",
+                onConfirm = {
+                    invoiceViewModel.deleteInvoice(invoiceToDelete!!)
+                    invoiceToDelete = null
+                }
+            ) {
+                invoiceToDelete = null
+            }
+        }
     }
 }
 
@@ -221,7 +247,9 @@ fun InvoiceBody(
     innerPadding: PaddingValues,
     invoiceViewModel: InvoiceViewModel,
     productViewModel: ProductViewModel,
-    clientViewModel: ClientViewModel
+    clientViewModel: ClientViewModel,
+    totalPrice: MutableState<Double>,
+    onInvoiceLongPress: (InvoiceWithIC) -> Unit
 ){
     val searchValue = remember { mutableStateOf("")  }
     var currentBody by remember { mutableStateOf(BodyScreen.LIST) }
@@ -233,6 +261,8 @@ fun InvoiceBody(
     val listOfChosenProducts = remember { mutableListOf<Pair<Product, Int>>() }
     val chosenClient = remember { mutableStateOf<Client?>(null) }
 
+    val discount = remember (chosenClient.value) { mutableStateOf("${(chosenClient.value?.discount ?: 0.0) * 100}")}
+
     Column(
         modifier = Modifier
             .padding(innerPadding)
@@ -240,41 +270,39 @@ fun InvoiceBody(
             .fillMaxSize(),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        SimpleSearchFilterBar(
+        StyledSearchBar(
             textValue = searchValue,
-            onFilterClick = {
-                // on filter icon click
-            }
         )
         when(currentBody) {
             BodyScreen.LIST ->{
                 InvoiceList(
-                    modifier = Modifier,
+                    modifier = Modifier.weight(1f),
                     searchValue = searchValue,
-                    invoiceList = invoiceList
+                    invoiceList = invoiceList,
+                    onInvoiceLongPress = { onInvoiceLongPress(it) }
                 )
             }
             BodyScreen.ADD_PRODUCT -> {
                 InvoiceAddProduct(
-                    modifier = Modifier,
+                    modifier = Modifier.weight(1f),
                     searchValue = searchValue,
                     productList = productList,
-                    chosenProducts = listOfChosenProducts
+                    chosenProducts = listOfChosenProducts,
+                    totalPrice = totalPrice
                 )
             }
             BodyScreen.ADD_CLIENT -> {
                 InvoiceAddClient(
-                    modifier = Modifier,
+                    modifier = Modifier.weight(1f),
                     searchValue = searchValue,
                     clientList = clientList,
-                    chosenClient = chosenClient
+                    chosenClient = chosenClient,
                 )
-                if(chosenClient.value != null){
-                    val discount = remember { mutableStateOf("${chosenClient.value!!.discount * 100} %") }
+                if(chosenClient.value != null) {
                     StyledOutlinedTextField(
                         props = StyledOutlinedTextFieldProps(
                             textFieldValue = discount,
-                            labelText = "Discount",
+                            labelText = "Discount %",
                         )
                     )
                 }
@@ -293,23 +321,25 @@ fun InvoiceBody(
                 BodyScreen.ADD_PRODUCT -> currentBody = BodyScreen.ADD_CLIENT
                 BodyScreen.ADD_CLIENT -> {
                     // Creating list of items for invoice and counting total price
-                    var totalPrice = 0.0
                     val invoiceItems = mutableListOf<InvoiceItem>()
                     listOfChosenProducts.forEach {(product, quantity) ->
-                        invoiceItems.add(InvoiceItem(
+                        invoiceItems.add(
+                            InvoiceItem(
                             title = product.title,
                             quantity = quantity,
                             price = product.price,
                             idProduct = product.id
-                        ))
-                        totalPrice += product.price * quantity
+                        )
+                        )
+                        totalPrice.value += product.price * quantity
                     }
 
                     //Inserting invoice
                     val newInvoice = Invoice(
                         number = getNewNumber(invoiceList.last().invoice.number),
-                        discount = chosenClient.value!!.discount,
-                        totalPrice = totalPrice,
+                        discount = discount.value.toDouble() / 100,
+                        totalPrice = totalPrice.value,
+                        dateCreated = Date(),
                         idClient = chosenClient.value!!.id
                     )
                     invoiceViewModel.insertInvoice(newInvoice)
@@ -317,10 +347,12 @@ fun InvoiceBody(
                     // inserting each item to db and connecting item id to invoice id
                     invoiceItems.forEach {
                         invoiceViewModel.insertInvoiceItem(it)
-                        invoiceViewModel.insertInvoiceCrossItems(InvoiceCrossItems(
+                        invoiceViewModel.insertInvoiceCrossItems(
+                            InvoiceCrossItems(
                             invoiceId = newInvoice.id,
                             invoiceItemId = it.id
-                        ))
+                        )
+                        )
                     }
                     // notification "are u sure"
 
@@ -338,6 +370,7 @@ fun InvoiceList(
     modifier: Modifier,
     searchValue: MutableState<String>,
     invoiceList: List<InvoiceWithIC>,
+    onInvoiceLongPress: (InvoiceWithIC) -> Unit
 ){
     LazyColumn(modifier = modifier.padding(vertical = 10.dp)) {
         val filteredInvoices = if (searchValue.value.isNotEmpty()) {
@@ -350,13 +383,16 @@ fun InvoiceList(
         }
 
         items(filteredInvoices) {
-            SimpleListItem(
+            StyledListItem(
                 modifier = Modifier,
                 overLineText = "Status",
                 headLine = it.invoice.number,
                 supportingText = "${it.client.name} ${it.client.surname}",
                 onClick = {
                     // open pdf with invoice
+                },
+                onLongPress = {
+                    onInvoiceLongPress(it)
                 }
             )
         }
@@ -368,7 +404,8 @@ fun InvoiceAddProduct(
     modifier: Modifier,
     searchValue: MutableState<String>,
     productList: List<Product>,
-    chosenProducts: MutableList<Pair<Product,Int>>
+    chosenProducts: MutableList<Pair<Product,Int>>,
+    totalPrice: MutableState<Double>
 ){
     LazyColumn(modifier = modifier.padding(vertical = 10.dp)) {
         val filteredProducts = if (searchValue.value.isNotEmpty()) {
@@ -396,8 +433,10 @@ fun InvoiceAddProduct(
                     val existingProduct = chosenProducts.find { it.first == product }
                     if (existingProduct != null) {
                         chosenProducts[chosenProducts.indexOf(existingProduct)] = existingProduct.first to quantity.intValue
+                        totalPrice.value = chosenProducts.sumOf { it.first.price * it.second }
                     } else {
                         chosenProducts.add(product to quantity.intValue)
+                        totalPrice.value = chosenProducts.sumOf { it.first.price * it.second }
                     }
                 }
             }
@@ -410,7 +449,7 @@ fun InvoiceAddClient(
     modifier: Modifier,
     searchValue: MutableState<String>,
     clientList: List<Client>,
-    chosenClient: MutableState<Client?>
+    chosenClient: MutableState<Client?>,
 ){
     LazyColumn(modifier = modifier.padding(vertical = 10.dp)) {
         val filteredClients = if (searchValue.value.isNotEmpty()) {

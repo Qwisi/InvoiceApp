@@ -1,6 +1,8 @@
-package com.example.invoiceapp.repository
+package com.example.invoiceapp.model.repository
 
 import com.example.invoiceapp.model.category.*
+import com.example.invoiceapp.model.entities.category.Category
+import com.example.invoiceapp.model.entities.category.CategoryDao
 
 class CategoryRepository(
     private val categoryDao: CategoryDao

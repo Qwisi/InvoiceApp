@@ -1,10 +1,10 @@
-package com.example.invoiceapp.model.invoiceItem
+package com.example.invoiceapp.model.entities.invoiceItem
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.example.invoiceapp.model.product.Product
+import com.example.invoiceapp.model.entities.product.Product
 
 @Entity(
     tableName = "InvoiceItem",

@@ -1,4 +1,4 @@
-package com.example.invoiceapp.model.client
+package com.example.invoiceapp.model.entities.client
 
 
 import androidx.lifecycle.LiveData
@@ -7,9 +7,7 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import androidx.room.Transaction
 import androidx.room.Update
-import com.example.invoiceapp.model.client.Client
 
 @Dao
 interface ClientDao {
@@ -23,11 +21,16 @@ interface ClientDao {
     suspend fun update(client: Client): Int
 
     //----------------Delete
-
     @Delete
     suspend fun delete(client: Client): Int
 
     //----------------Query
     @Query("SELECT * FROM Client")
     fun getLiveData(): LiveData<List<Client>>
+
+    @Query("SELECT * FROM Client")
+    fun getSize(): Int
+
+    @Query("SELECT AVG(totalAmount) FROM Client")
+    fun getAverageTotalAmount(): Double
 }

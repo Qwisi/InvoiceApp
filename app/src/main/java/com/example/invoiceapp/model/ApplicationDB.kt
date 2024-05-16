@@ -5,23 +5,24 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import com.example.invoiceapp.model.category.Category
-import com.example.invoiceapp.model.category.CategoryDao
-import com.example.invoiceapp.model.client.Client
-import com.example.invoiceapp.model.client.ClientDao
-import com.example.invoiceapp.model.invoice.Invoice
-import com.example.invoiceapp.model.invoice.InvoiceCrossItems
-import com.example.invoiceapp.model.invoice.InvoiceCrossItemsDao
-import com.example.invoiceapp.model.invoice.InvoiceDao
-import com.example.invoiceapp.model.invoiceItem.InvoiceItem
-import com.example.invoiceapp.model.invoiceItem.InvoiceItemDao
-import com.example.invoiceapp.model.measurement.Measurement
-import com.example.invoiceapp.model.measurement.MeasurementDao
-import com.example.invoiceapp.model.product.Product
-import com.example.invoiceapp.model.product.ProductDao
+import com.example.invoiceapp.model.entities.category.Category
+import com.example.invoiceapp.model.entities.category.CategoryDao
+import com.example.invoiceapp.model.entities.client.Client
+import com.example.invoiceapp.model.entities.client.ClientDao
+import com.example.invoiceapp.model.converters.DateConverter
+import com.example.invoiceapp.model.entities.invoice.Invoice
+import com.example.invoiceapp.model.entities.invoice.InvoiceCrossItems
+import com.example.invoiceapp.model.entities.invoice.InvoiceCrossItemsDao
+import com.example.invoiceapp.model.entities.invoice.InvoiceDao
+import com.example.invoiceapp.model.entities.invoiceItem.InvoiceItem
+import com.example.invoiceapp.model.entities.invoiceItem.InvoiceItemDao
+import com.example.invoiceapp.model.entities.measurement.Measurement
+import com.example.invoiceapp.model.entities.measurement.MeasurementDao
+import com.example.invoiceapp.model.entities.product.Product
+import com.example.invoiceapp.model.entities.product.ProductDao
 
 
-@TypeConverters()
+@TypeConverters(DateConverter::class)
 @Database (
     entities = [Client::class, Category::class,
         Product::class, Measurement::class,
@@ -69,5 +70,4 @@ abstract class ApplicationDB: RoomDatabase() {
                 .build()
         }
     }
-
 }

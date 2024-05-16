@@ -4,9 +4,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
@@ -42,7 +40,7 @@ fun SimpleSearchFilterBar(
         modifier = modifier,
         verticalAlignment = Alignment.CenterVertically
     ){
-        SimpleSearchBar(
+        StyledSearchBar(
             modifier = Modifier.weight(0.85f),
             textValue = textValue
         )

@@ -4,7 +4,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.invoiceapp.model.measurement.Measurement
+import com.example.invoiceapp.model.entities.measurement.Measurement
 import com.example.invoiceapp.view.composes.StyledAddCard
 import com.example.invoiceapp.view.composes.StyledOutlinedTextFieldProps
 import com.example.invoiceapp.viewModel.ProductViewModel

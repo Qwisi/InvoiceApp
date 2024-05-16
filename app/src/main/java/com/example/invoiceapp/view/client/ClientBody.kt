@@ -13,8 +13,8 @@ import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.invoiceapp.model.client.Client
-import com.example.invoiceapp.view.composes.SimpleSearchBar
+import com.example.invoiceapp.model.entities.client.Client
+import com.example.invoiceapp.view.composes.StyledSearchBar
 import com.example.invoiceapp.view.composes.StyledButton
 import com.example.invoiceapp.viewModel.ClientViewModel
 
@@ -38,7 +38,7 @@ fun ClientBody(
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         if (showClientList.value) {
-            SimpleSearchBar(
+            StyledSearchBar(
                 textValue = searchValue
             )
             ClientList(

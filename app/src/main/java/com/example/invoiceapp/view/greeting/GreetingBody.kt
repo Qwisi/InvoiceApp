@@ -39,7 +39,6 @@ fun GreetingBody(
         if (result.resultCode == Activity.RESULT_OK) {
             imageUri.value = result.data?.data
             imageUri.value.let {
-                //imageUris?.removeLast()
                 imageUris.add(it!!)
             }
         }
@@ -66,12 +65,11 @@ fun GreetingBody(
         )
         StyledAttachBox(
             modifier = Modifier,
-            onClick = {
+        ){
                 pickImageLauncher.launch(Intent(Intent.ACTION_PICK).apply {
                     type = "image/*"
                 })
             }
-        )
         LogoGrid(
             modifier = Modifier,
             imageUris = imageUris

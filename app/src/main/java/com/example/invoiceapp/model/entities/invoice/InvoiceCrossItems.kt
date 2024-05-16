@@ -1,4 +1,4 @@
-package com.example.invoiceapp.model.invoice
+package com.example.invoiceapp.model.entities.invoice
 
 import androidx.room.Entity
 

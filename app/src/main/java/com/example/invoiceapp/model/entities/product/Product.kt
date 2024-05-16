@@ -1,11 +1,11 @@
-package com.example.invoiceapp.model.product
+package com.example.invoiceapp.model.entities.product
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.example.invoiceapp.model.category.Category
-import com.example.invoiceapp.model.measurement.Measurement
+import com.example.invoiceapp.model.entities.category.Category
+import com.example.invoiceapp.model.entities.measurement.Measurement
 
 @Entity(
     tableName = "Product",

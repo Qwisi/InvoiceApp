@@ -1,4 +1,4 @@
-package com.example.invoiceapp.model.measurement
+package com.example.invoiceapp.model.entities.measurement
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -12,12 +12,16 @@ import androidx.room.Update
 interface MeasurementDao {
 
     //----------------Insert
-    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    @Insert(onConflict = OnConflictStrategy.ABORT)
     suspend fun insert(measurement: Measurement): Long
 
     //----------------Update
+    @Update
+    suspend fun update(measurement: Measurement)
 
     //----------------Delete
+    @Delete
+    suspend fun delete(measurement: Measurement)
 
     //----------------Query
     @Query("SELECT * FROM Measurement")

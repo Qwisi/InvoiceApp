@@ -1,11 +1,11 @@
-package com.example.invoiceapp.model.invoice
+package com.example.invoiceapp.model.entities.invoice
 
 import androidx.room.Entity
 import androidx.room.ForeignKey
 import androidx.room.Index
 import androidx.room.PrimaryKey
-import com.example.invoiceapp.model.client.Client
-import com.example.invoiceapp.model.invoiceItem.InvoiceItem
+import com.example.invoiceapp.model.entities.client.Client
+import com.example.invoiceapp.model.entities.invoiceItem.InvoiceItem
 import java.util.Date
 
 @Entity(
@@ -26,6 +26,6 @@ data class Invoice(
     val number: String,
     val discount: Double,
     val totalPrice: Double,
-    //val dateCreated: Date?
+    val dateCreated: Date,
     val idClient: Int,
 )

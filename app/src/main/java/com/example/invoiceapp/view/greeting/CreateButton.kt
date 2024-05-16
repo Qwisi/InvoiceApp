@@ -11,7 +11,7 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.invoiceapp.model.category.Category
+import com.example.invoiceapp.model.entities.category.Category
 import com.example.invoiceapp.view.composes.StyledButton
 import com.example.invoiceapp.view.composes.StyledOutlinedTextFieldProps
 import com.example.invoiceapp.viewModel.CategoryViewModel
@@ -40,7 +40,7 @@ fun CreateButton(
                 context.saveImageToInternalStorage(uri, companyTextFieldProps.textFieldValue.value)
             }
             chosenCategories.forEach {
-                viewModel.insertCategory(Category(category = it))
+                viewModel.insertCategory(Category(name = it))
             }
         }
     }
@@ -49,7 +49,6 @@ fun CreateButton(
 private fun Context.saveImageToInternalStorage(uri: Uri?, logoName: String): String? {
     uri ?: return null
     val inputStream = contentResolver.openInputStream(uri) ?: return null
-    //val format = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
     val file = File(filesDir, "${logoName}_logo.jpg")
     val outputStream = FileOutputStream(file)
     inputStream.copyTo(outputStream)

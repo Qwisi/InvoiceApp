@@ -24,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.invoiceapp.R
+import com.example.invoiceapp.ui.theme.SubText50
 import com.example.invoiceapp.ui.theme.SurfacePrimary
 import com.example.invoiceapp.ui.theme.SurfaceSecondary
 
@@ -31,20 +32,16 @@ import com.example.invoiceapp.ui.theme.SurfaceSecondary
 @Preview
 @Composable
 fun SearchBarPreview(){
-    val active = remember { mutableStateOf("Active") }
+    val searchText = remember { mutableStateOf("Active") }
 
     Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.White)
+        modifier = Modifier.fillMaxSize().background(Color.White)
     ){
         Column {
-            SimpleSearchBar(
-                modifier = Modifier.padding(20.dp)
-            )
-            SimpleSearchBar(
+            StyledSearchBar(modifier = Modifier.padding(20.dp))
+            StyledSearchBar(
                 modifier = Modifier.padding(20.dp),
-                textValue = active
+                textValue = searchText
             )
         }
     }
@@ -52,7 +49,7 @@ fun SearchBarPreview(){
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SimpleSearchBar(
+fun StyledSearchBar(
     modifier: Modifier = Modifier,
     textValue: MutableState<String> = mutableStateOf("")
 ) {
@@ -73,16 +70,14 @@ fun SimpleSearchBar(
                 .padding(10.dp, 5.dp)
             ,
             value = textValue.value,
-            onValueChange = { newText ->
-                textValue.value = newText
-            },
+            onValueChange = { textValue.value = it },
             placeholder = {
                 Text("Search")
             },
             singleLine = true,
             colors = TextFieldDefaults.textFieldColors(
                 containerColor = Color.Transparent,
-                cursorColor = Color.Gray,
+                cursorColor = SubText50,
                 focusedIndicatorColor = Color.Transparent,
                 unfocusedIndicatorColor = Color.Transparent
             ),
